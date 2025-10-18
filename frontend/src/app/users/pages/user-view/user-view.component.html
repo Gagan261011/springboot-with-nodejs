@@ -1,0 +1,47 @@
+<section class="user-view" *ngIf="user as currentUser; else loading">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ currentUser.firstName }} {{ currentUser.lastName }}</mat-card-title>
+      <mat-card-subtitle>{{ currentUser.email }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="user-view__chips">
+        <mat-chip color="primary" selected>{{ currentUser.role | titlecase }}</mat-chip>
+        <mat-chip [color]="currentUser.status === 'ACTIVE' ? 'primary' : 'warn'" selected>
+          {{ currentUser.status | titlecase }}
+        </mat-chip>
+      </div>
+      <dl class="user-view__details">
+        <div>
+          <dt>Created</dt>
+          <dd>{{ currentUser.createdAt | date: 'medium' }}</dd>
+        </div>
+        <div>
+          <dt>Updated</dt>
+          <dd>{{ currentUser.updatedAt | date: 'medium' }}</dd>
+        </div>
+      </dl>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button (click)="onBack()">Back</button>
+      <button mat-raised-button color="primary" (click)="onEdit(currentUser)">
+        <mat-icon>edit</mat-icon>
+        Edit
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</section>
+
+<ng-template #loading>
+  <div class="user-view__loading" *ngIf="isLoading; else noData">
+    <mat-progress-spinner diameter="48" mode="indeterminate"></mat-progress-spinner>
+  </div>
+</ng-template>
+
+<ng-template #noData>
+  <div class="user-view__error">
+    <mat-icon>person_off</mat-icon>
+    <p>User details are not available.</p>
+    <button mat-button color="primary" (click)="onBack()">Back to list</button>
+  </div>
+</ng-template>

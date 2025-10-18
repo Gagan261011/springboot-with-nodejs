@@ -1,0 +1,11 @@
+target
+data
+.mvn
+**/node_modules
+*.log
+.idea
+.vscode
+.DS_Store
+/.settings
+/.classpath
+/.project

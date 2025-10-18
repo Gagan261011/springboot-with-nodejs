@@ -1,0 +1,11 @@
+<div class="app-shell">
+  <mat-toolbar color="primary" class="app-toolbar">
+    <mat-icon class="app-toolbar__icon">manage_accounts</mat-icon>
+    <span class="app-toolbar__title">{{ title }}</span>
+    <span class="app-toolbar__spacer"></span>
+    <a mat-button routerLink="/users">Users</a>
+  </mat-toolbar>
+  <main class="app-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

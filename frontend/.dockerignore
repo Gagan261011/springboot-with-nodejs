@@ -1,0 +1,11 @@
+node_modules
+dist
+.angular
+npm-debug.log
+.env
+.DS_Store
+.idea
+.vscode
+coverage
+/.cache
+/.sass-cache

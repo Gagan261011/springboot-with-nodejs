@@ -1,0 +1,21 @@
+.app-toolbar {
+  &__icon {
+    margin-right: 12px;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  &__spacer {
+    flex: 1;
+  }
+}
+
+.app-content {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 24px 16px;
+  box-sizing: border-box;
+}

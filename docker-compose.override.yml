@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/workspace:delegated
+      - maven-repo:/root/.m2
+    working_dir: /workspace
+    command: mvn -Dspring-boot.run.profiles=dev spring-boot:run
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-user_management}
+      DB_USER: ${DB_USER:-um_admin}
+      DB_PASSWORD: ${DB_PASSWORD:-um_secret}
+    ports:
+      - "${BACKEND_PORT:-8095}:${BACKEND_PORT:-8095}"
+    networks:
+      - internal
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app:delegated
+      - node-modules:/app/node_modules
+    working_dir: /app
+    command: npm run start
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "${FRONTEND_PORT:-4201}:${FRONTEND_PORT:-4201}"
+    networks:
+      - internal
+
+volumes:
+  maven-repo:
+  node-modules:
+
+networks:
+  internal:
